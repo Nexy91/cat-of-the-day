@@ -17,6 +17,8 @@ export class TopRatedComponent implements OnInit {
   ngOnInit(): void {
     this._api.getAllVotes().subscribe((votes: VoteModel[]) => {
       this.votes = votes.sort((a: VoteModel, b: VoteModel) => a.avg > b.avg ? 1 : 0);
+
+
       if (this.votes.length > this.maxTop) {
         this.votes = this.votes.slice(0, this.maxTop);
       }

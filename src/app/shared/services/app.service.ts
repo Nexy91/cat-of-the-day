@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 @Injectable({ providedIn: 'root' })
 export class APPService {
   // Number of images in assets
-  public totalCats = 5;
+  public totalCats = 50;
 
   public getRandomCat(previousCat: number): number {
     let random: number;

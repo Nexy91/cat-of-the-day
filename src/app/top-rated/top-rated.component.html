@@ -1,4 +1,4 @@
-<div class="navigation">
+<div class="navigation" *ngIf="votes?.length">
   <a routerLink="/home">Back to home</a>
   <h1>TOP RATED!</h1>
   <a routerLink="/rate">Let's rate!</a>
@@ -11,4 +11,10 @@
       <b>Rate: {{vote.avg | number : '1.1-1'}}</b> | Reviews: {{vote.count}}
     </div>
   </div>
+
+  <div *ngIf="!votes?.length" class="no-data scale-in-center">
+    <img src="../../assets/no-data.png" />
+    <a routerLink="/home">Back to home</a>
+  </div>
+
 </div>

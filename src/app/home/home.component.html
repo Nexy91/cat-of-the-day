@@ -5,7 +5,7 @@
       <img src="../../assets/{{randomImgId}}.gif" />
       <h1>Rate!</h1>
     </a>
-    <a class="box" routerLink="/top-rated">
+    <a class="box" routerLink="/top-rated" *ngIf="topRatedImgId">
       <img src="../../assets/{{topRatedImgId}}.gif" />
       <h1>Today's TOP!</h1>
     </a>

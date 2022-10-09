@@ -1,0 +1,21 @@
+:host {
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h4 {
+      margin-bottom: 0px;
+      color: #ffc800;
+
+      b {
+        font-weight: bolder;
+        color: #09ff00;
+      }
+    }
+
+    img {
+      width: 800px;
+    }
+  }
+}

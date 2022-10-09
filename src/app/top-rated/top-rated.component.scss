@@ -29,6 +29,7 @@
         border: var(--border);
         border-top-left-radius: var(--border-radius);
         border-top-right-radius: var(--border-radius);
+        transition: 0.5s;
       }
 
       .desc {
@@ -40,21 +41,37 @@
         border-bottom-left-radius: var(--border-radius);
         border-bottom-right-radius: var(--border-radius);
         color: #edc968;
+        transition: 0.5s;
       }
     }
 
     .box:hover {
       transform: scale(1.1);
-      transition: 0.2s;
+      transition: 0.5s;
 
       img {
         border-bottom: 0px !important;
         border: var(--border-light);
+        transition: 0.5s;
       }
 
       .desc {
         border-top: 0px !important;
         border: var(--border-light);
+        transition: 0.5s;
+      }
+    }
+
+    .no-data {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      a {
+        color: #ffb606;
+        font-size: 20px;
+        text-decoration: none;
+        cursor: pointer;
       }
     }
   }

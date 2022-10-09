@@ -15,6 +15,10 @@ const routes: Routes = [
     loadChildren: () => import('./top-rated/top-rated.module').then(m => m.TopRatedModule)
   },
   {
+    path: 'server-down',
+    loadChildren: () => import('./server-down/server-down.module').then(m => m.ServerDownModule)
+  },
+  {
     path: "**",
     redirectTo: 'home'
   },
