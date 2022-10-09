@@ -23,14 +23,12 @@ export class RateComponent implements OnInit {
   public cat: CatModel;
 
   public countdown$: Observable<number>;
-  public status$: Observable<number>;
   public unsubscribe$ = new Subject();
 
   constructor(private _api: APIService, private _app: APPService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.countdown$ = interval(1000).pipe(take(this.countdown + 1), map(count => this.countdown - count));
-    this.status$ = interval(1000).pipe(startWith(0), take(2), map(count => 2 - count));
     this._route.queryParams.subscribe((params: Params) => {
       if (params.id) {
         this.cat = {

@@ -12,7 +12,7 @@
     </div>
   </div>
 
-  <div *ngIf="!votes?.length" class="no-data scale-in-center">
+  <div *ngIf="noVotes" class="no-data scale-in-center">
     <img src="../../assets/no-data.png" />
     <a routerLink="/home">Back to home</a>
   </div>
