@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./top-rated.component.scss']
 })
 export class TopRatedComponent implements OnInit {
+  private maxTop: number = 50; // Show just first x images of top rated cats
   public votes: VoteModel[] = [];
 
   constructor(private _api: APIService, private _router: Router) { }
@@ -16,9 +17,11 @@ export class TopRatedComponent implements OnInit {
   ngOnInit(): void {
     this._api.getAllVotes().subscribe((votes: VoteModel[]) => {
       this.votes = votes.sort((a: VoteModel, b: VoteModel) => a.avg > b.avg ? 1 : 0);
+      if (this.votes.length > this.maxTop) {
+        this.votes = this.votes.slice(0, this.maxTop);
+      }
     });
   }
-
   public navigateToCat(vote: VoteModel): void {
     this._router.navigate(['/rate'], { queryParams: { id: vote.id } });
   }

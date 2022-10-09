@@ -4,8 +4,11 @@
   <img [ngClass]="!editMode ? 'scale-in-center' : ''" [src]="cat.url" />
 </div>
 
-<h1 *ngIf="!editMode" class="scale-in-center">Let's rate it!</h1>
-<h1 *ngIf="editMode" class="scale-in-center-both">You have {{countdown$ | async}} seconds to change your mind...</h1>
+<div class="info">
+  <h1 *ngIf="!editMode" class="scale-in-center">Let's rate it!</h1>
+  <h1 *ngIf="editMode" class="scale-in-center-both">You have {{countdown$ | async}} seconds to change your mind...</h1>
+  <h1 *ngIf="editMode" class="scale-out-center-both">{{currentRate.description}}</h1>
+</div>
 
 <rating #rating (rated)="rateCat($event);"></rating>
 

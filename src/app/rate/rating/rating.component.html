@@ -1,6 +1,6 @@
 <p>
-  <button *ngFor="let rate of [1,2,3,4,5]" [title]="rate < 3 ? 'So-so' : rate >= 3 && rate < 5 ? 'Cool' : 'The best'"
-    [ngClass]="currentRate >= rate ? 'normal-rate fill' : ''" (click)="publishRate(rate);">
+  <button *ngFor="let r of rating" [title]="r.description" [ngClass]="currentRate >= r.rate ? 'normal-rate fill' : ''"
+    (click)="publishRate(r);">
     <svg viewBox="0 0 24 24">
       <use xlink:href="#star" class="icon-star" />
     </svg>

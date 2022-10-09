@@ -1,3 +1,6 @@
+import { interval, Observable, Subject } from "rxjs";
+import { map, startWith, take, takeUntil } from "rxjs/operators";
+import { RatingModel } from '../shared/models/rating.interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RatingComponent } from './rating/rating.component';
 import { APIService } from '../shared/services/api.service';
@@ -5,9 +8,6 @@ import { VoteModel } from '../shared/models/vote.interface';
 import { APPService } from '../shared/services/app.service';
 import { CatModel } from '../shared/models/cat.interface';
 import { ActivatedRoute, Params } from '@angular/router';
-import { interval, Observable } from "rxjs";
-import { map, take } from "rxjs/operators";
-
 @Component({
   selector: 'cat-rate',
   templateUrl: './rate.component.html',
@@ -19,13 +19,18 @@ export class RateComponent implements OnInit {
 
   public countdown: number = 3; // Max number of seconds when the user can change his decision
   public editMode: boolean; // The moment when the user can change his decision
-  public countdown$: Observable<number>;
+  public currentRate: RatingModel;
   public cat: CatModel;
+
+  public countdown$: Observable<number>;
+  public status$: Observable<number>;
+  public unsubscribe$ = new Subject();
 
   constructor(private _api: APIService, private _app: APPService, private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.countdown$ = interval(1000).pipe(take(this.countdown + 1), map(count => this.countdown - count));
+    this.status$ = interval(1000).pipe(startWith(0), take(2), map(count => 2 - count));
     this._route.queryParams.subscribe((params: Params) => {
       if (params.id) {
         this.cat = {
@@ -36,15 +41,20 @@ export class RateComponent implements OnInit {
       } else { this.swipeToNextCat(); }
     });
   }
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
+  }
 
-  public rateCat(rate: number): void {
-    this.cat.rate = rate;
+  public rateCat(rate: RatingModel): void {
+    this.currentRate = rate;
+    this.cat.rate = this.currentRate.rate;
 
     if (!this.editMode) {
       this.editMode = true;
-
-      this.countdown$.subscribe((seconds: number) => {
+      this.countdown$.pipe(takeUntil(this.unsubscribe$)).subscribe((seconds: number) => {
         if (seconds === 0) {
+          this.currentRate = {} as RatingModel;
           this._api.getVote(this.cat.id).subscribe((vote: VoteModel) => {
             // Update
             vote.count++;
@@ -70,7 +80,6 @@ export class RateComponent implements OnInit {
       });
     }
   }
-
   private swipeToNextCat(): void {
     if (this.rating) { this.rating.reset(); }
     this.editMode = false;
