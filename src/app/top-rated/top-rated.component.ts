@@ -13,13 +13,13 @@ export class TopRatedComponent implements OnInit {
 
   constructor(private _api: APIService, private _router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._api.getAllVotes().subscribe((votes: VoteModel[]) => {
-      this.votes = votes.sort((a, b) => a.avg > b.avg ? 1 : 0);
+      this.votes = votes.sort((a: VoteModel, b: VoteModel) => a.avg > b.avg ? 1 : 0);
     });
   }
 
-  public navigateToCat(vote: VoteModel) {
+  public navigateToCat(vote: VoteModel): void {
     this._router.navigate(['/rate'], { queryParams: { id: vote.id } });
   }
 }

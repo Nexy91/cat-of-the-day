@@ -14,6 +14,7 @@ import { map, take } from "rxjs/operators";
   styleUrls: ['./rate.component.scss']
 })
 export class RateComponent implements OnInit {
+  // This can also be done with an input element, but I wanted to show knowledge of viewChild through this example
   @ViewChild(RatingComponent, { static: false }) rating: RatingComponent;
 
   public countdown: number = 3; // Max number of seconds when the user can change his decision
@@ -23,7 +24,7 @@ export class RateComponent implements OnInit {
 
   constructor(private _api: APIService, private _app: APPService, private _route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.countdown$ = interval(1000).pipe(take(this.countdown + 1), map(count => this.countdown - count));
     this._route.queryParams.subscribe((params: Params) => {
       if (params.id) {
@@ -36,7 +37,7 @@ export class RateComponent implements OnInit {
     });
   }
 
-  public rateCat(rate: number) {
+  public rateCat(rate: number): void {
     this.cat.rate = rate;
 
     if (!this.editMode) {
@@ -49,19 +50,19 @@ export class RateComponent implements OnInit {
             vote.count++;
             vote.sum = vote.sum + this.cat.rate;
             vote.avg = vote.sum / vote.count;
-            this._api.updateVote(vote).subscribe((x: any) => {
+            this._api.updateVote(vote).subscribe(() => {
               this.swipeToNextCat();
             });
 
-          }, (error: any) => {
+          }, () => {
             // Create new
             let newVote: VoteModel = {
+              count: 1,
               id: this.cat.id,
               sum: this.cat.rate,
-              avg: this.cat.rate,
-              count: 1
+              avg: this.cat.rate
             };
-            this._api.postVote(newVote).subscribe((x: any) => {
+            this._api.postVote(newVote).subscribe(() => {
               this.swipeToNextCat();
             });
           });
@@ -70,20 +71,17 @@ export class RateComponent implements OnInit {
     }
   }
 
-  private swipeToNextCat() {
+  private swipeToNextCat(): void {
     if (this.rating) { this.rating.reset(); }
     this.editMode = false;
 
-    let previousCat: number = this.cat ? this.cat.id : -1;
-    let nextCat: number;
-
-    do { nextCat = Math.floor(Math.random() * this._app.totalCats); }
-    while (nextCat === 0 || previousCat == nextCat);
+    const previousCat: number = this.cat ? this.cat.id : -1;
+    const randomCat = this._app.getRandomCat(previousCat);
 
     this.cat = {
       rate: 0,
-      id: nextCat,
-      url: `../../assets/${nextCat}.gif`
+      id: randomCat,
+      url: `../../assets/${randomCat}.gif`
     }
   }
 }
