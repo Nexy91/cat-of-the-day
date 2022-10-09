@@ -1,0 +1,14 @@
+<div class="navigation">
+  <a routerLink="/home">Back to home</a>
+  <h1>TOP RATED!</h1>
+  <a routerLink="/rate">Let's rate!</a>
+</div>
+
+<div class="wrapper">
+  <div class="box scale-in-center" *ngFor="let vote of votes" (click)="navigateToCat(vote);">
+    <img src="../../assets/{{vote.id}}.gif" />
+    <div class="desc">
+      <b>Rate: {{vote.avg | number : '1.1-1'}}</b> | Reviews: {{vote.count}}
+    </div>
+  </div>
+</div>

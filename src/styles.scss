@@ -1,1 +1,40 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./styles/animations.scss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  background-color: #3b405b;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+h1,
+p {
+  margin: 0 auto;
+  color: rgba(243, 243, 215, 1);
+  font-weight: normal;
+  text-align: center;
+}
+
+.navigation {
+  text-align: center;
+  color: #bcbcaa;
+  font-size: 18px;
+
+  a {
+    cursor: pointer;
+    color: #bcbcaa;
+    font-size: 18px;
+    text-decoration: none;
+  }
+}

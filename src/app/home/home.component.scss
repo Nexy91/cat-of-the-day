@@ -1,0 +1,46 @@
+:host {
+  --border: 1px solid #292d40;
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 35px;
+    color: #f3f3d7;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+
+    .box {
+      margin: 0px 15px;
+      transition: 0.5s;
+      cursor: pointer;
+      text-decoration: none;
+
+      img {
+        width: 400px;
+        height: 400px;
+        object-fit: cover;
+        border: var(--border);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      h1 {
+        padding: 5px;
+        margin-top: -5px;
+        background-color: #b9987c;
+        border: var(--border);
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    }
+
+    .box:hover {
+      transform: scale(1.1);
+      transition: 0.5s;
+      /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+  }
+}

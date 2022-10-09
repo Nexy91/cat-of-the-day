@@ -1,0 +1,13 @@
+<div class="fade-in" *ngIf="randomImgId">
+  <div class="header">Top cat of the day!</div>
+  <div class="wrapper">
+    <a class="box" routerLink="/rate">
+      <img src="../../assets/{{randomImgId}}.gif" />
+      <h1>Rate!</h1>
+    </a>
+    <a class="box" routerLink="/top-rated">
+      <img src="../../assets/{{topRatedImgId}}.gif" />
+      <h1>Today's TOP!</h1>
+    </a>
+  </div>
+</div>

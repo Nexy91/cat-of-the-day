@@ -1,0 +1,15 @@
+<h1>Competition for the most beautiful cat!</h1>
+
+<div class="img-box fade-in">
+  <img [ngClass]="!editMode ? 'scale-in-center' : ''" [src]="cat.url" />
+</div>
+
+<h1 *ngIf="!editMode" class="scale-in-center">Let's rate it!</h1>
+<h1 *ngIf="editMode" class="scale-in-center-both">You have {{countdown$ | async}} seconds to change your mind...</h1>
+
+<rating #rating (rated)="rateCat($event);"></rating>
+
+<div class="navigation scale-in-center-both">
+  <a routerLink="/home">Back to home</a>
+  <a routerLink="/top-rated">Today's top!</a>
+</div>
